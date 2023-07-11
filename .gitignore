@@ -18,6 +18,9 @@ target/
 *.iws
 *.iml
 *.ipr
+mvnw
+mvnw.cmd
+.mvn
 
 ### NetBeans ###
 /nbproject/private/
@@ -31,3 +34,4 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/resources/application.properties~
