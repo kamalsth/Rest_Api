@@ -1,6 +1,8 @@
 package com.example.practice.services;
 
 import com.example.practice.config.CustomUserDetails;
+import com.example.practice.config.JwtResponse;
+import com.example.practice.config.JwtTokenUtil;
 import com.example.practice.config.PasswordEncoder;
 import com.example.practice.entities.Role;
 import com.example.practice.entities.User;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
     private UserRepository userRepository;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,6 +49,20 @@ public class CustomUserDetailService implements UserDetailsService {
         }
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully");
+    }
+
+
+    public ResponseEntity<?>loginUser(User user){
+        UserDetails userDetails = loadUserByUsername(user.getUsername());
+        if (userDetails == null) {
+            return ResponseEntity.badRequest().body("User not found with username: " + user.getUsername());
+        }
+        if (!new PasswordEncoder().matches(user.getPassword(), userDetails.getPassword())) {
+            return ResponseEntity.badRequest().body("Please check your password");
+        }
+        String token = jwtTokenUtil.generateToken(userDetails);
+        JwtResponse jwtResponse = new JwtResponse(token);
+        return ResponseEntity.ok(jwtResponse);
     }
 
     public String hashPassword(String password) {
