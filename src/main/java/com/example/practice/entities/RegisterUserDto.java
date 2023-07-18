@@ -40,12 +40,20 @@ public class RegisterUserDto {
 
 
     public User mapToUser() {
-        User user = new User();
+//        User user = new User();
+//        user.setUsername(username);
+//        user.setPassword(password);
+//        user.setEmail(email);
+//        user.setName(name);
+//        user.setPhone(phone);
+//        return user;
+
+        User user=new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setPhone(phone);
         user.setEmail(email);
         user.setName(name);
-        user.setPhone(phone);
         return user;
     }
 }

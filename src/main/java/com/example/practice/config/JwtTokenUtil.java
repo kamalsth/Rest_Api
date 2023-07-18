@@ -17,18 +17,19 @@ public class JwtTokenUtil {
 
     @Value("${jwt.expiration}")
     private long expiration;
-    SecretKey key= Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+expiration*1000))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .signWith(key)
                 .compact();
     }
-    private Claims extractAllClaims(String token)throws SignatureException{
+
+    private Claims extractAllClaims(String token) throws SignatureException {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -36,16 +37,15 @@ public class JwtTokenUtil {
                 .getBody();
     }
 
-     String extractUsername(String token) throws SignatureException{
+    String extractUsername(String token) throws SignatureException {
         return extractAllClaims(token).getSubject();
     }
 
-    public boolean validateToken(String token,UserDetails userDetails) throws SignatureException{
+    public boolean validateToken(String token, UserDetails userDetails) throws SignatureException {
         return userDetails.getUsername().equals(extractUsername(token));
     }
 
-   private boolean isTokenExpired(String token)throws SignatureException{
+    public boolean isTokenExpired(String token) throws SignatureException {
         return extractAllClaims(token).getExpiration().before(new Date());
-   }
-
+    }
 }
