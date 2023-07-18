@@ -38,11 +38,7 @@ public class RegisterUserDto {
     private String phone;
 
 
-    /**
-     * Maps the RegisterUserDto object to a User entity and assign default newsGroup and alertGroup.
-     *
-     * @return the User entity with the username and password set
-     */
+
     public User mapToUser() {
         User user = new User();
         user.setUsername(username);
