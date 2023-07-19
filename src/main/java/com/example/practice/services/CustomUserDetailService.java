@@ -1,7 +1,7 @@
 package com.example.practice.services;
 
 import com.example.practice.config.CustomUserDetails;
-import com.example.practice.config.JwtResponse;
+import com.example.practice.config.JwtTokenResponse;
 import com.example.practice.config.JwtTokenUtil;
 import com.example.practice.config.PasswordEncoder;
 import com.example.practice.entities.ChangePasswordDto;
@@ -65,8 +65,8 @@ public class CustomUserDetailService implements UserDetailsService {
             return ResponseEntity.badRequest().body(new CustomMessage("Password is not correct"));
         }
         String token = jwtTokenUtil.generateToken(userDetails);
-        JwtResponse jwtResponse = new JwtResponse(token);
-        return ResponseEntity.ok(jwtResponse);
+        JwtTokenResponse jwtTokenResponse = new JwtTokenResponse(token);
+        return ResponseEntity.ok(jwtTokenResponse);
     }
 
     public String hashPassword(String password) {
