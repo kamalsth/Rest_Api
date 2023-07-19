@@ -95,5 +95,5 @@ public class CustomUserDetailService implements UserDetailsService {
         changePassword(username, requestPassword.getNewPassword());
         return ResponseEntity.ok(new CustomMessage("Password changed successfully"));
     }
-    
+
 }
