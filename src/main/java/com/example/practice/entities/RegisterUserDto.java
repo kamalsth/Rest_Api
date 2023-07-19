@@ -31,7 +31,6 @@ public class RegisterUserDto {
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
-    //phone number
     @NotNull(message = "Phone number is required")
     @NotEmpty(message = "Phone number is required")
     @Size(min = 10, max = 10, message = "Phone number is invalid")
@@ -40,20 +39,12 @@ public class RegisterUserDto {
 
 
     public User mapToUser() {
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(password);
-//        user.setEmail(email);
-//        user.setName(name);
-//        user.setPhone(phone);
-//        return user;
-
-        User user=new User();
+        User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        user.setPhone(phone);
         user.setEmail(email);
         user.setName(name);
+        user.setPhone(phone);
         return user;
     }
 }
