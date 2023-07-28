@@ -1,5 +1,6 @@
 package com.example.practice.config;
 
+import com.example.practice.entities.Role;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,9 +22,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .antMatchers("/h2-console/**", "/h2-console").permitAll()
+                .antMatchers("/api/admin/*", "/api/admin/**").hasAuthority(Role.ADMIN.name())
                 .antMatchers("/api","/api/**").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
