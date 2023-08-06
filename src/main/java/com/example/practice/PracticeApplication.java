@@ -7,10 +7,13 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class PracticeApplication {
@@ -26,6 +29,9 @@ public class PracticeApplication {
                         .addList("Bearer Authentication"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication",createAPIKeyScheme()))
+                .servers(Arrays.asList(
+                        new Server().url("http://localhost:8080")
+                ))
                 .info(new Info()
                         .title(title)
                         .description(description)
