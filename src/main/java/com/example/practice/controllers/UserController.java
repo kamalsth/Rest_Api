@@ -1,9 +1,9 @@
 package com.example.practice.controllers;
 
-import com.example.practice.entities.ChangePasswordDto;
-import com.example.practice.entities.LoginUserDto;
-import com.example.practice.entities.RegisterUserDto;
-import com.example.practice.services.CustomUserDetailService;
+import com.example.practice.dtos.ChangePasswordDto;
+import com.example.practice.dtos.LoginUserDto;
+import com.example.practice.dtos.RegisterUserDto;
+import com.example.practice.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,28 +13,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @AllArgsConstructor
 public class UserController {
-    private CustomUserDetailService customUserDetailService;
+    private UserService userService;
 
 
     @PostMapping("/auth/register")
     public ResponseEntity<?> registerUser(@RequestBody @Validated RegisterUserDto registerRequest) {
-        return customUserDetailService.registerUser(registerRequest.mapToUser());
+        return userService.registerUser(registerRequest.mapToUser());
     }
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> loginUser(@RequestBody @Validated LoginUserDto loginRequest) {
-       return customUserDetailService.loginUser(loginRequest.toUser());
+       return userService.loginUser(loginRequest.toUser());
     }
 
     @PostMapping("/changePassword")
     public ResponseEntity<?>changePassword(@RequestBody @Validated ChangePasswordDto passwordRequest){
-        return customUserDetailService.changePassword(passwordRequest);
+        return userService.changePassword(passwordRequest);
     }
 
 
     @GetMapping("/getCurrentUser")
     public ResponseEntity<?>getCurrentUser(){
-        return customUserDetailService.getCurrentUser();
+        return userService.getCurrentUser();
     }
 
 }
