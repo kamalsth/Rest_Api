@@ -28,8 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .antMatchers("/h2-console/**", "/h2-console").permitAll()
                 .antMatchers("/api/admin/*", "/api/admin/**").hasAuthority(Role.ADMIN.name())
-                .antMatchers("/api","/api/**").permitAll()
-                .antMatchers("/").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

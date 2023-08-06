@@ -4,6 +4,7 @@ import com.example.practice.config.CustomUserDetails;
 import com.example.practice.config.JwtTokenResponse;
 import com.example.practice.config.JwtTokenUtil;
 import com.example.practice.config.PasswordEncoder;
+import com.example.practice.dtos.UserDetailsDto;
 import com.example.practice.entities.ChangePasswordDto;
 import com.example.practice.entities.Role;
 import com.example.practice.entities.User;
@@ -94,6 +95,17 @@ public class CustomUserDetailService implements UserDetailsService {
         }
         changePassword(username, requestPassword.getNewPassword());
         return ResponseEntity.ok(new CustomMessage("Password changed successfully"));
+    }
+
+
+    public ResponseEntity<?> getCurrentUser(){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String username= authentication.getName();
+        User user=getUserByUsername(username);
+        if(user!=null){
+            return ResponseEntity.ok(UserDetailsDto.mapToUserDetailsDto(user));
+        }
+        return ResponseEntity.badRequest().body(new CustomMessage("User not found"));
     }
 
 }

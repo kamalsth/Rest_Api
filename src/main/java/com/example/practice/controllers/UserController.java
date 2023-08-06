@@ -7,10 +7,7 @@ import com.example.practice.services.CustomUserDetailService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -19,12 +16,12 @@ public class UserController {
     private CustomUserDetailService customUserDetailService;
 
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<?> registerUser(@RequestBody @Validated RegisterUserDto registerRequest) {
         return customUserDetailService.registerUser(registerRequest.mapToUser());
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> loginUser(@RequestBody @Validated LoginUserDto loginRequest) {
        return customUserDetailService.loginUser(loginRequest.toUser());
     }
@@ -35,5 +32,9 @@ public class UserController {
     }
 
 
+    @GetMapping("/getCurrentUser")
+    public ResponseEntity<?>getCurrentUser(){
+        return customUserDetailService.getCurrentUser();
+    }
 
 }
