@@ -5,7 +5,7 @@ import com.example.practice.config.JwtTokenResponse;
 import com.example.practice.config.JwtTokenUtil;
 import com.example.practice.config.PasswordEncoder;
 import com.example.practice.dtos.UserDetailsDto;
-import com.example.practice.entities.ChangePasswordDto;
+import com.example.practice.dtos.ChangePasswordDto;
 import com.example.practice.entities.Role;
 import com.example.practice.entities.User;
 import com.example.practice.exceptions.CustomMessage;
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class CustomUserDetailService implements UserDetailsService {
+public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private JwtTokenUtil jwtTokenUtil;
 
