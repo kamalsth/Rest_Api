@@ -1,5 +1,6 @@
-package com.example.practice.entities;
+package com.example.practice.dtos;
 
+import com.example.practice.entities.User;
 import lombok.Data;
 
 import javax.validation.constraints.*;
